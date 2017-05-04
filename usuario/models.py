@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User, Group
 from django.core.exceptions import ObjectDoesNotExist
 
+
 def grupo_usuario_comum():
     try:
         grupo = Group.objects.get(name='Usuário Comum')
@@ -12,7 +13,18 @@ def grupo_usuario_comum():
     else:
         return grupo.id
 
+
 class Usuario(models.Model):
+
+    id = models.AutoField(db_column='ID', primary_key=True)
+
+    user = models.OneToOneField(User, default="", verbose_name='Usuário')
+
+    username = models.CharField(
+        max_length=45,
+        unique=True,
+        default="",
+        verbose_name='Nome de Usuário')
 
     nome = models.CharField(
         max_length=45,

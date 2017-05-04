@@ -28,17 +28,22 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login/?next='
+
 
 # Application definition
 
 INSTALLED_APPS = [
     'usuario.apps.UsuarioConfig',
+    'reclamacao.apps.ReclamacaoConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
 ]
 
 MIDDLEWARE_CLASSES = [

@@ -1,0 +1,39 @@
+.fundo{
+    background-image: url("../imagens/fundo.jpg");
+    background-size: 100% 100%;
+    min-height: 100vh;
+    margin-top: -50px;
+    padding-top: 10%;
+}
+.panel-title{
+    text-align: center;
+    font-size: xx-large;
+    color: #618eaf;
+}
+.navfilter{
+    background-color: #FFFFFF !important;
+    margin-bottom: 15px;
+    border-bottom: 1px solid transparent;
+    border-top-right-radius: 0.7%;
+    border-top-left-radius: 0.7%;
+    border-bottom-left-radius:0.7%;
+    border-bottom-right-radius: 0.7%;
+}
+#reclame{
+    color: #ffffff;
+}
+#login-senha{
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    color: red;
+}
+#botao-reclamacao,
+#botao-estatisticas{
+    margin-bottom: 20%;
+}
+#grupo-botoes{
+    margin-left: 33%;
+    margin-top: 5%;
+    width: 35%;
+}

@@ -15,12 +15,19 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.contrib.auth.models import User
 from django.views.generic.base import TemplateView
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(
         template_name='inicial.html'),
         name='inicio'),
-    url(r'^usuario/', include('usuario.urls')),
+    url(r'^sobre/$', TemplateView.as_view(
+        template_name='sobre.html'),
+        name='sobre'),
+    url(r'', include('usuario.urls')),
+    url(r'', include('reclamacao.urls')),
     url(r'^admin/', admin.site.urls),
 ]
+
+admin.site.unregister(User)
