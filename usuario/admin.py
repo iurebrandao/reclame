@@ -11,7 +11,6 @@ class UsuarioAdmin(admin.ModelAdmin):
               'nome',
               'senha',
               'cpf',
-              'rg',
               'sexo',
               'data_nasc',
               'grupo_usuario']
@@ -19,8 +18,7 @@ class UsuarioAdmin(admin.ModelAdmin):
     search_fields = ['username',
                      'nome',
                      'email',
-                     'cpf',
-                     'rg']
+                     'cpf']
     list_display = ['username',
                     'email',
                     'nome',

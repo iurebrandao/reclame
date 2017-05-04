@@ -28,12 +28,12 @@ class UsuarioForm(ModelForm):
     senha = forms.CharField(
         max_length=45,
         label='Senha',
-        widget=forms.PasswordInput())
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
     confirma_senha = forms.CharField(
         max_length=45,
         label='Confirmar Senha',
-        widget=forms.PasswordInput())
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
     sexo = forms.ChoiceField(
         choices=[('', '--------'),
@@ -41,8 +41,8 @@ class UsuarioForm(ModelForm):
                  ('F', 'Feminino'),
                  ('O', 'Outro')],
         widget=forms.Select(
-            attrs={'class': 'selector'}),
-        required=False)
+            attrs={'class': 'form-control'}),
+        required=True)
 
     class Meta:
         model = Usuario
@@ -52,7 +52,6 @@ class UsuarioForm(ModelForm):
                   'senha',
                   'confirma_senha',
                   'cpf',
-                  'rg',
                   'sexo',
                   'data_nasc']
         widgets = {'grupo_usuario': forms.HiddenInput()}
@@ -103,11 +102,6 @@ class UsuarioForm(ModelForm):
         else:
             raise ValidationError('Preencha o campo CPF')
 
-        # Validação de RG
-        if (self.cleaned_data['rg'] and
-                Usuario.objects.filter(rg=self.cleaned_data['rg']).exists()):
-            raise ValidationError('RG já existente.')
-
         # Validação de Data de Nascimento
         if (self.cleaned_data['data_nasc']):
             if (self.cleaned_data['data_nasc'] > datetime.datetime.now().date()):
@@ -140,6 +134,9 @@ class UsuarioForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(UsuarioForm, self).__init__(*args, **kwargs)
-        self.fields['cpf'].widget.attrs['class'] = 'cpf'
-        self.fields['rg'].widget.attrs['class'] = 'rg'
-        self.fields['data_nasc'].widget.attrs['class'] = 'data'
+        self.fields['cpf'].widget.attrs['class'] = 'form-control'
+        self.fields['username'].widget.attrs['class'] = 'form-control'
+        self.fields['nome'].widget.attrs['class'] = 'form-control'
+        self.fields['email'].widget.attrs['class'] = 'form-control'
+        self.fields['data_nasc'].widget.attrs['class'] = 'form-control'
+        self.fields['data_nasc'].initial = ''

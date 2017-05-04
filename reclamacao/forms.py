@@ -10,39 +10,39 @@ from reclamacao.models import Tema, Problema, Ambiente, Cidade, Reclamacao
 
 
 class ReclamacaoForm(ModelForm):
-
     tema = forms.ModelChoiceField(
         label='Selecione o tema',
         required=True,
         queryset=Tema.objects.all().order_by('tema'),
         widget=forms.Select(
-            attrs={'class': 'selector'}))
+            attrs={'class': 'form-control'}))
 
     cidade = forms.ModelChoiceField(
         label='Selecione a cidade',
         required=True,
         queryset=Cidade.objects.all().order_by('nome'),
         widget=forms.Select(
-            attrs={'class': 'selector'}))
+            attrs={'class': 'form-control'}))
 
     ambiente = forms.ModelChoiceField(
         label='Selecione o ambiente',
         required=True,
         queryset=Ambiente.objects.all().order_by('ambiente'),
         widget=forms.Select(
-            attrs={'class': 'selector'}))
+            attrs={'class': 'form-control'}))
 
     problema = forms.ModelChoiceField(
         label='Selecione o problema',
         required=True,
         queryset=Problema.objects.all().order_by('problema'),
         widget=forms.Select(
-            attrs={'class': 'selector'}))
+            attrs={'class': 'form-control'}))
 
     descricao = forms.CharField(
         label='Descrição',
         widget=forms.Textarea(
-            attrs={'rows': 15,
+            attrs={'class': 'form-control',
+                   'rows': 15,
                    'cols': 48,
                    'spellcheck': 'True',
                    'lang': 'pt-BR',
@@ -59,12 +59,13 @@ class ReclamacaoForm(ModelForm):
 
 
 class EstatisticasForm(django_filters.FilterSet):
-
     tema = django_filters.ModelChoiceFilter(
         label='Tema',
         required=False,
         queryset=Tema.objects.all().order_by('tema'),
-        empty_label='Selecione')
+        empty_label='Selecione',
+        widget=forms.Select(
+            attrs={'class': 'form-control'}))
 
     class Meta:
         model = Reclamacao
@@ -79,6 +80,6 @@ class EstatisticasForm(django_filters.FilterSet):
         self.form.helper = FormHelper()
         self.form.helper.form_method = 'GET'
         self.form.helper.layout = Layout(
-            Fieldset('Filtragem de Estatisticas'),
+            Fieldset('Filtragem de Estatísticas'),
             row1,
             form_actions(save_label='Filtrar'))

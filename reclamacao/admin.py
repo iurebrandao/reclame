@@ -8,19 +8,22 @@ class ReclamacaoAdmin(admin.ModelAdmin):
               'problema',
               'ambiente',
               'cidade',
-              'descricao']
+              'descricao',
+              'usuario']
 
     search_fields = ['tema',
                      'problema',
                      'ambiente',
                      'cidade',
-                     'descricao']
+                     'descricao',
+                     'usuario']
 
     list_display = ['tema',
                     'problema',
                     'ambiente',
                     'cidade',
-                    'descricao']
+                    'descricao',
+                    'usuario']
 
 admin.site.register(Reclamacao, ReclamacaoAdmin)
 admin.site.register(Tema)

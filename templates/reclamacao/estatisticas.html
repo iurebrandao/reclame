@@ -1,10 +1,14 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load staticfiles %}
 
 {% block content %}
-
     <script>
       lista_pontos = {{ lista_pontos|safe }};
+    </script>
+    <script src="{% static 'js/heatmap.js' %}"></script>
+     <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFa80Y91O2_dHX-P-2LybXs0E5K4bxB0k&libraries=visualization&callback=initMap">
     </script>
 
     <div class="fundo">
@@ -21,10 +25,12 @@
                 </div>
 
                 <div class="panel-body">
-
+                    <div id="map"></div>
                 </div>
             </div>
         </div>
 
     </div>
+
+
 {% endblock %}

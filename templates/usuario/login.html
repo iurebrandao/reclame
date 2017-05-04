@@ -14,7 +14,7 @@
                     <form method="post" action="" >
                         {% csrf_token %}
                         <div class="form-group">
-                            <p>Usuario</p>
+                            <p>Usuário</p>
                             {{ form.username|as_crispy_field }}
                         </div>
                         <div class="form-group">
@@ -39,9 +39,8 @@
                         <div class = "senha" id="login-senha">
                             <a href="#">Esqueceu a senha?</a>
                         </div>
-
                         <input class="btn btn-lg btn-primary btn-block" type="submit" value="Entrar">
-
+                        <a class="btn btn-lg btn-success btn-block" id="botao-cadastrar" href="{% url 'cadastrar_usuario'  %}">Cadastrar</a>
 
                     </form>
                 </div>

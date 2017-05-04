@@ -36,17 +36,9 @@ class Usuario(models.Model):
         unique=True,
         verbose_name='CPF')
 
-    rg = models.CharField(
-        db_column='RG',
-        max_length=15,
-        blank=True,
-        null=True,
-        verbose_name='RG')
-
     sexo = models.CharField(
         max_length=1,
-        blank=True,
-        null=True,
+        default='',
         choices=(('M', 'Masculino'),
                  ('F', 'Feminino'),
                  ('O', 'Outro')),
@@ -57,13 +49,12 @@ class Usuario(models.Model):
         unique=True,
         verbose_name='E-mail')
 
+    data_nasc = models.DateField(
+        default='2000-01-01',
+        verbose_name='Data de Nascimento')
+
     senha = models.CharField(
         max_length=128)
-
-    data_nasc = models.DateField(
-        blank=True,
-        null=True,
-        verbose_name='Data de Nascimento')
 
     grupo_usuario = models.ForeignKey(
         Group,
