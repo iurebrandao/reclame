@@ -63,3 +63,9 @@
 label{
     color: #686868;
 }
+
+.sobre {
+    text-align: justify;
+    text-indent: 3em;
+    font-size: 150%;
+}
