@@ -140,3 +140,74 @@ class UsuarioForm(ModelForm):
         self.fields['email'].widget.attrs['class'] = 'form-control'
         self.fields['data_nasc'].widget.attrs['class'] = 'form-control'
         self.fields['data_nasc'].initial = ''
+
+class EditarPerfilForm(ModelForm):
+
+    sexo = forms.ChoiceField(
+        choices=[('', '--------'),
+                 ('M', 'Masculino'),
+                 ('F', 'Feminino'),
+                 ('O', 'Outro')],
+        widget=forms.Select(
+            attrs={'class': 'form-control'}),
+        required=True)
+
+    class Meta:
+        model = Usuario
+        fields = [
+                  'email',
+                  'nome',
+                  'sexo',
+                  'data_nasc']
+        widgets = {'grupo_usuario': forms.HiddenInput()}
+
+    def valida_igualdade(self, texto1, texto2, msg):
+        if texto1 != texto2:
+            raise ValidationError(msg)
+        return True
+
+    def clean(self):
+
+        # Validação de Email Existente
+        email_existente1 = Usuario.objects.filter(
+            email=self.cleaned_data['email']).exists()
+
+        email_existente2 = User.objects.filter(
+            email=self.cleaned_data['email']).exists()
+
+        if (email_existente1 or email_existente2):
+            msg = 'Esse email já foi cadastrado.'
+            raise ValidationError(msg)
+
+        # Validação de Data de Nascimento
+        if (self.cleaned_data['data_nasc']):
+            if (self.cleaned_data['data_nasc'] > datetime.datetime.now().date()):
+                raise ValidationError(
+                    'Você não pode ter nascido no futuro!')
+
+        return self.cleaned_data
+
+    @transaction.atomic
+    def save(self, commit=False):
+        usuario = super(EditarPerfilForm, self).save(commit)
+
+        u = User.objects.create(
+            username=usuario.username,
+            email=usuario.email)
+
+        u.save()
+
+        usuario.user = u
+
+        usuario.save()
+
+        grupo = Group.objects.get(name='Usuário Comum')
+        u.groups.add(grupo)
+
+        return usuario
+
+    def __init__(self, *args, **kwargs):
+        super(EditarPerfilForm, self).__init__(*args, **kwargs)
+        set.fields['nome']
+        set.fields['email']
+        set.fields['data_nasc']
