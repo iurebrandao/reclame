@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block content %}
+
+    <script src="{% static 'js/jquery.mask.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/mascaras.js' %}"></script>
+
+    <div class="fundo">
+        <div class="col-lg-8 col-lg-offset-2">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" id="login">Editar Perfil</h3>
+                </div>
+                {% for message in messages %}
+                    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade in" style="text-align: center" role="alert">
+                        {{ message|safe }}
+                    </div>
+                {% endfor %}
+                <div class="panel-body">
+                    <form method="post" action="" >
+                        {% csrf_token %}
+                        <fieldset>
+                            <div class="form-group">
+                                {{ form.nome|as_crispy_field }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form.email|as_crispy_field }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form.data_nasc|as_crispy_field }}
+                            </div>
+
+                             <div class="form-group">
+                                {{ form.sexo|as_crispy_field }}
+                            </div>
+
+                            <input class="btn btn-lg btn-primary" id="botao-cadastrar-usuario" type="submit" value="Confirmar">
+                        </fieldset>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

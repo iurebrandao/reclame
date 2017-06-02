@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.views import login
 from django.db import transaction
@@ -8,7 +9,7 @@ from django.urls import reverse
 from django.views import View
 from django.views.generic import FormView
 
-from usuario.forms import LoginForm, UsuarioForm
+from usuario.forms import LoginForm, UsuarioForm, EditarPerfilForm
 from usuario.models import Usuario
 
 
@@ -65,3 +66,39 @@ class CadastrarUsuarioView(FormView):
             messages.add_message(request, messages.ERROR, mensagem)
             return self.render_to_response(
                 {'form': form})
+
+
+class EditarPerfilView(LoginRequiredMixin, FormView):
+
+    template_name = "usuario/editar_perfil.html"
+    form_class = EditarPerfilForm
+    success_url = 'inicio'
+
+    @transaction.atomic
+    def form_valid(self, form):
+        kwargs = {}
+        form.save()
+        user = User.objects.get(username=self.request.POST.get('username'))
+        usuario = Usuario.objects.get(user=user)
+
+        user.save()
+        usuario.save()
+
+        return redirect(reverse(self.get_success_url()))
+
+    def post(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            erros = form.non_field_errors().as_text()
+            erros = ''.join(c for c in erros if c not in '*')
+            mensagem = 'Formulário Inválido.' + erros
+            messages.add_message(request, messages.ERROR, mensagem)
+            return self.render_to_response(
+                {'form': form})
+
+
+
