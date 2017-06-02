@@ -141,6 +141,7 @@ class UsuarioForm(ModelForm):
         self.fields['data_nasc'].widget.attrs['class'] = 'form-control'
         self.fields['data_nasc'].initial = ''
 
+
 class EditarPerfilForm(ModelForm):
 
     sexo = forms.ChoiceField(
@@ -154,8 +155,7 @@ class EditarPerfilForm(ModelForm):
 
     class Meta:
         model = Usuario
-        fields = [
-                  'email',
+        fields = ['email',
                   'nome',
                   'sexo',
                   'data_nasc']
@@ -208,6 +208,8 @@ class EditarPerfilForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(EditarPerfilForm, self).__init__(*args, **kwargs)
-        set.fields['nome']
-        set.fields['email']
-        set.fields['data_nasc']
+        self.fields['nome'].widget.attrs['class'] = 'form-control'
+        self.fields['email'].widget.attrs['class'] = 'form-control'
+        self.fields['data_nasc'].widget.attrs['class'] = 'form-control'
+        self.fields['data_nasc'].initial = ''
+

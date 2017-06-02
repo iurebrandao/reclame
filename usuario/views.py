@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.views import login
 from django.db import transaction
@@ -66,12 +67,12 @@ class CadastrarUsuarioView(FormView):
             return self.render_to_response(
                 {'form': form})
 
-class EditarPerfilView(FormView):
+
+class EditarPerfilView(LoginRequiredMixin, FormView):
 
     template_name = "usuario/editar_perfil.html"
     form_class = EditarPerfilForm
     success_url = 'inicio'
-
 
     @transaction.atomic
     def form_valid(self, form):
@@ -98,5 +99,6 @@ class EditarPerfilView(FormView):
             messages.add_message(request, messages.ERROR, mensagem)
             return self.render_to_response(
                 {'form': form})
+
 
 
