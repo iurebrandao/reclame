@@ -1,7 +1,7 @@
 .fundo{
     background-image: url("../imagens/fundo.jpg");
     background-size: 100% 100%;
-    min-height: 150vh;
+    min-height: 170vh;
     margin-top: -50px;
     padding-top: 10%;
 }
@@ -56,6 +56,10 @@
 #botao-cadastrar-usuario{
     margin-left: 41%;
     margin-top: 3%;
+}
+#botao-voltar{
+    margin-left: 45%;
+    margin-bottom: 3%;
 }
 #hint_id_tema{
     color: #ffffff;
